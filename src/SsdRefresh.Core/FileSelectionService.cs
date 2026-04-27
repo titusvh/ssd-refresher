@@ -48,19 +48,14 @@ public sealed class FileSelectionService
         while (pendingDirectories.Count > 0)
         {
             var current = pendingDirectories.Pop();
-            IEnumerable<string> entries;
-
-            try
+            var enumeration = TryGetDirectoryEntries(current);
+            if (enumeration.FailureTarget is not null)
             {
-                entries = Directory.GetFileSystemEntries(current, "*", SearchOption.TopDirectoryOnly);
-            }
-            catch (Exception ex)
-            {
-                yield return BuildEnumerationFailureTarget(current, ex);
+                yield return enumeration.FailureTarget;
                 continue;
             }
 
-            foreach (var entry in entries)
+            foreach (var entry in enumeration.Entries)
             {
                 var fullEntryPath = System.IO.Path.GetFullPath(entry);
 
@@ -77,6 +72,24 @@ public sealed class FileSelectionService
             }
         }
     }
+
+    private static DirectoryEnumerationResult TryGetDirectoryEntries(string directoryPath)
+    {
+        try
+        {
+            return new DirectoryEnumerationResult(
+                Directory.GetFileSystemEntries(directoryPath, "*", SearchOption.TopDirectoryOnly),
+                null);
+        }
+        catch (Exception ex)
+        {
+            return new DirectoryEnumerationResult(
+                Array.Empty<string>(),
+                BuildEnumerationFailureTarget(directoryPath, ex));
+        }
+    }
+
+    private sealed record DirectoryEnumerationResult(string[] Entries, ScanTarget? FailureTarget);
 
     private static ScanTarget BuildEnumerationFailureTarget(string directoryPath, Exception ex)
     {
