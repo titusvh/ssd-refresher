@@ -1,0 +1,30 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsdRefresh.Core", "src/SsdRefresh.Core/SsdRefresh.Core.csproj", "{B9E90B3F-A9CA-4C9D-8F27-6D20C77A31A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsdRefresh.Cli", "src/SsdRefresh.Cli/SsdRefresh.Cli.csproj", "{3E49D6D7-2780-4A6A-B8A9-57049D07CD69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsdRefresh.Core.Tests", "tests/SsdRefresh.Core.Tests/SsdRefresh.Core.Tests.csproj", "{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9E90B3F-A9CA-4C9D-8F27-6D20C77A31A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E90B3F-A9CA-4C9D-8F27-6D20C77A31A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E90B3F-A9CA-4C9D-8F27-6D20C77A31A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E90B3F-A9CA-4C9D-8F27-6D20C77A31A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E49D6D7-2780-4A6A-B8A9-57049D07CD69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E49D6D7-2780-4A6A-B8A9-57049D07CD69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E49D6D7-2780-4A6A-B8A9-57049D07CD69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E49D6D7-2780-4A6A-B8A9-57049D07CD69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
