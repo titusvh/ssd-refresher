@@ -2,6 +2,7 @@ using System.Runtime.InteropServices;
 using System.Text.Json;
 using Shouldly;
 using SsdRefresh.Core;
+using Xunit;
 
 namespace SsdRefresh.Core.Tests;
 
