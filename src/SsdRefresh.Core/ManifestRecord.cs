@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace SsdRefresh.Core;
 
 public sealed class ManifestRecord
@@ -11,6 +13,7 @@ public sealed class ManifestRecord
     public required DateTimeOffset CreationTimeUtc { get; init; }
     public required DateTimeOffset LastWriteTimeUtc { get; init; }
     public required string[] Attributes { get; init; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public ScanStatus Status { get; init; } = ScanStatus.Hashed;
     public long DurationMs { get; set; }
 }

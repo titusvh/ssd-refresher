@@ -24,10 +24,10 @@ public sealed class FileScanService
 
     public Task<ScanResult> ScanSingleFileAsync(string filePath, ScanOptions options, IProgress<ScanProgress>? progress, CancellationToken cancellationToken)
     {
-        return ScanCoreAsync(new[] { System.IO.Path.GetFullPath(filePath) }, options, progress, cancellationToken);
+        return ScanCoreAsync(new[] { new ScanTarget { Path = System.IO.Path.GetFullPath(filePath) } }, options, progress, cancellationToken);
     }
 
-    private async Task<ScanResult> ScanCoreAsync(IEnumerable<string> filePaths, ScanOptions options, IProgress<ScanProgress>? progress, CancellationToken cancellationToken)
+    private async Task<ScanResult> ScanCoreAsync(IEnumerable<ScanTarget> scanTargets, ScanOptions options, IProgress<ScanProgress>? progress, CancellationToken cancellationToken)
     {
         var runId = Guid.NewGuid().ToString("N");
         var filesSeen = 0L;
@@ -39,15 +39,17 @@ public sealed class FileScanService
         await using var manifestWriter = new JsonLinesManifestWriter(options.ManifestPath);
         await using var reportWriter = new JsonLinesReportWriter(options.ReportPath);
 
-        foreach (var path in filePaths.Distinct(StringComparer.OrdinalIgnoreCase))
+        foreach (var target in scanTargets.DistinctBy(t => t.Path, StringComparer.OrdinalIgnoreCase))
         {
             cancellationToken.ThrowIfCancellationRequested();
             filesSeen++;
             var watch = Stopwatch.StartNew();
             var timestamp = DateTimeOffset.UtcNow;
-            var fullPath = System.IO.Path.GetFullPath(path);
+            var fullPath = System.IO.Path.GetFullPath(target.Path);
 
-            var result = await ScanOneFileAsync(fullPath, runId, options, cancellationToken).ConfigureAwait(false);
+            var result = target.ShouldSkipScan
+                ? ScanOneResult.PreScan(target.PreScanStatus!.Value, target.Attributes, target.ExceptionType, target.Message)
+                : await ScanOneFileAsync(fullPath, runId, options, cancellationToken).ConfigureAwait(false);
             watch.Stop();
 
             if (result.ManifestRecord is not null)
@@ -213,5 +215,10 @@ public sealed class FileScanService
 
         public static ScanOneResult Failed(ScanStatus status, string[] attributes, string? exceptionType = null, string? message = null)
             => new(status, null, 0, null, null, attributes, exceptionType, message);
+
+        public static ScanOneResult PreScan(ScanStatus status, string[] attributes, string? exceptionType = null, string? message = null)
+            => status.ToString().StartsWith("Skipped", StringComparison.Ordinal)
+                ? Skipped(status, attributes, exceptionType, message)
+                : Failed(status, attributes, exceptionType, message);
     }
 }

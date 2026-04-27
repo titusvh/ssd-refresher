@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace SsdRefresh.Core;
 
 public sealed class ReportRecord
@@ -6,6 +8,7 @@ public sealed class ReportRecord
     public required string RunId { get; init; }
     public string Operation { get; init; } = "Scan";
     public required string Path { get; init; }
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public required ScanStatus Status { get; init; }
     public long? Length { get; init; }
     public string? Sha256 { get; init; }

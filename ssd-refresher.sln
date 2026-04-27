@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsdRefresh.Cli", "src/SsdRe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsdRefresh.Core.Tests", "tests/SsdRefresh.Core.Tests/SsdRefresh.Core.Tests.csproj", "{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SsdRefresh.Cli.Tests", "tests/SsdRefresh.Cli.Tests/SsdRefresh.Cli.Tests.csproj", "{0A044520-7FCD-4398-9DE5-E6E817903937}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,5 +28,9 @@ Global
 		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AB64AB28-18F5-4A07-B8CC-3BAA76F7E104}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A044520-7FCD-4398-9DE5-E6E817903937}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A044520-7FCD-4398-9DE5-E6E817903937}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A044520-7FCD-4398-9DE5-E6E817903937}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A044520-7FCD-4398-9DE5-E6E817903937}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
